@@ -28,82 +28,84 @@
 // we have hal.uartA to hal.uartH
 #define SERIALMANAGER_NUM_PORTS 8
 
- // console default baud rates and buffer sizes
+// console default baud rates and buffer sizes
 #ifdef HAL_SERIAL0_BAUD_DEFAULT
-# define AP_SERIALMANAGER_CONSOLE_BAUD          HAL_SERIAL0_BAUD_DEFAULT
+#define AP_SERIALMANAGER_CONSOLE_BAUD HAL_SERIAL0_BAUD_DEFAULT
 #else
-# define AP_SERIALMANAGER_CONSOLE_BAUD          115200
+#define AP_SERIALMANAGER_CONSOLE_BAUD 115200
 #endif
-# define AP_SERIALMANAGER_CONSOLE_BUFSIZE_RX    128
-# define AP_SERIALMANAGER_CONSOLE_BUFSIZE_TX    512
+#define AP_SERIALMANAGER_CONSOLE_BUFSIZE_RX 128
+#define AP_SERIALMANAGER_CONSOLE_BUFSIZE_TX 512
 
 // mavlink default baud rates and buffer sizes
-#define AP_SERIALMANAGER_MAVLINK_BAUD           57600
-#define AP_SERIALMANAGER_MAVLINK_BUFSIZE_RX     128
-#define AP_SERIALMANAGER_MAVLINK_BUFSIZE_TX     256
+#define AP_SERIALMANAGER_MAVLINK_BAUD 57600
+#define AP_SERIALMANAGER_MAVLINK_BUFSIZE_RX 128
+#define AP_SERIALMANAGER_MAVLINK_BUFSIZE_TX 256
 
 // FrSky default baud rates, use default buffer sizes
-#define AP_SERIALMANAGER_FRSKY_D_BAUD           9600
-#define AP_SERIALMANAGER_FRSKY_SPORT_BAUD       57600
-#define AP_SERIALMANAGER_FRSKY_BUFSIZE_RX       0
-#define AP_SERIALMANAGER_FRSKY_BUFSIZE_TX       0
+#define AP_SERIALMANAGER_FRSKY_D_BAUD 9600
+#define AP_SERIALMANAGER_FRSKY_SPORT_BAUD 57600
+#define AP_SERIALMANAGER_FRSKY_BUFSIZE_RX 0
+#define AP_SERIALMANAGER_FRSKY_BUFSIZE_TX 0
 
 // GPS default baud rates and buffer sizes
 // we need a 256 byte buffer for some GPS types (eg. UBLOX)
-#define AP_SERIALMANAGER_GPS_BAUD               38400
-#define AP_SERIALMANAGER_GPS_BUFSIZE_RX         256
-#define AP_SERIALMANAGER_GPS_BUFSIZE_TX         16
+#define AP_SERIALMANAGER_GPS_BAUD 38400
+#define AP_SERIALMANAGER_GPS_BUFSIZE_RX 256
+#define AP_SERIALMANAGER_GPS_BUFSIZE_TX 16
 
 // AlexMos Gimbal protocol default baud rates and buffer sizes
-#define AP_SERIALMANAGER_ALEXMOS_BAUD           115200
-#define AP_SERIALMANAGER_ALEXMOS_BUFSIZE_RX     128
-#define AP_SERIALMANAGER_ALEXMOS_BUFSIZE_TX     128
+#define AP_SERIALMANAGER_ALEXMOS_BAUD 115200
+#define AP_SERIALMANAGER_ALEXMOS_BUFSIZE_RX 128
+#define AP_SERIALMANAGER_ALEXMOS_BUFSIZE_TX 128
 
-#define AP_SERIALMANAGER_SToRM32_BAUD           115200
-#define AP_SERIALMANAGER_SToRM32_BUFSIZE_RX     128
-#define AP_SERIALMANAGER_SToRM32_BUFSIZE_TX     128
+#define AP_SERIALMANAGER_SToRM32_BAUD 115200
+#define AP_SERIALMANAGER_SToRM32_BUFSIZE_RX 128
+#define AP_SERIALMANAGER_SToRM32_BUFSIZE_TX 128
 
-#define AP_SERIALMANAGER_VOLZ_BAUD           115
-#define AP_SERIALMANAGER_VOLZ_BUFSIZE_RX     128
-#define AP_SERIALMANAGER_VOLZ_BUFSIZE_TX     128
+#define AP_SERIALMANAGER_VOLZ_BAUD 115
+#define AP_SERIALMANAGER_VOLZ_BUFSIZE_RX 128
+#define AP_SERIALMANAGER_VOLZ_BUFSIZE_TX 128
 
-#define AP_SERIALMANAGER_ROBOTIS_BUFSIZE_RX  128
-#define AP_SERIALMANAGER_ROBOTIS_BUFSIZE_TX  128
+#define AP_SERIALMANAGER_ROBOTIS_BUFSIZE_RX 128
+#define AP_SERIALMANAGER_ROBOTIS_BUFSIZE_TX 128
 
 // SBUS servo outputs
-#define AP_SERIALMANAGER_SBUS1_BAUD           100000
-#define AP_SERIALMANAGER_SBUS1_BUFSIZE_RX     16
-#define AP_SERIALMANAGER_SBUS1_BUFSIZE_TX     32
+#define AP_SERIALMANAGER_SBUS1_BAUD 100000
+#define AP_SERIALMANAGER_SBUS1_BUFSIZE_RX 16
+#define AP_SERIALMANAGER_SBUS1_BUFSIZE_TX 32
 
-#define AP_SERIALMANAGER_SLCAN_BAUD             115200
-#define AP_SERIALMANAGER_SLCAN_BUFSIZE_RX       128
-#define AP_SERIALMANAGER_SLCAN_BUFSIZE_TX       128
+#define AP_SERIALMANAGER_SLCAN_BAUD 115200
+#define AP_SERIALMANAGER_SLCAN_BUFSIZE_RX 128
+#define AP_SERIALMANAGER_SLCAN_BUFSIZE_TX 128
 
-class AP_SerialManager {
+class AP_SerialManager
+{
 public:
     AP_SerialManager();
 
     /* Do not allow copies */
     AP_SerialManager(const AP_SerialManager &other) = delete;
-    AP_SerialManager &operator=(const AP_SerialManager&) = delete;
+    AP_SerialManager &operator=(const AP_SerialManager &) = delete;
 
-    enum SerialProtocol {
+    enum SerialProtocol
+    {
         SerialProtocol_None = -1,
         SerialProtocol_Console = 0, // unused
         SerialProtocol_MAVLink = 1,
-        SerialProtocol_MAVLink2 = 2,                 // do not use - use MAVLink and provide instance of 1
-        SerialProtocol_FrSky_D = 3,                  // FrSky D protocol (D-receivers)
-        SerialProtocol_FrSky_SPort = 4,              // FrSky SPort protocol (X-receivers)
+        SerialProtocol_MAVLink2 = 2,    // do not use - use MAVLink and provide instance of 1
+        SerialProtocol_FrSky_D = 3,     // FrSky D protocol (D-receivers)
+        SerialProtocol_FrSky_SPort = 4, // FrSky SPort protocol (X-receivers)
         SerialProtocol_GPS = 5,
-        SerialProtocol_GPS2 = 6,                     // do not use - use GPS and provide instance of 1
+        SerialProtocol_GPS2 = 6, // do not use - use GPS and provide instance of 1
         SerialProtocol_AlexMos = 7,
         SerialProtocol_SToRM32 = 8,
         SerialProtocol_Rangefinder = 9,
         SerialProtocol_FrSky_SPort_Passthrough = 10, // FrSky SPort Passthrough (OpenTX) protocol (X-receivers)
         SerialProtocol_Lidar360 = 11,                // Lightware SF40C, TeraRanger Tower or RPLidarA2
-        SerialProtocol_Aerotenna_uLanding      = 12, // Ulanding support - deprecated, users should use Rangefinder
+        SerialProtocol_Aerotenna_uLanding = 12,      // Ulanding support - deprecated, users should use Rangefinder
         SerialProtocol_Beacon = 13,
-        SerialProtocol_Volz = 14,                    // Volz servo protocol
+        SerialProtocol_Volz = 14, // Volz servo protocol
         SerialProtocol_Sbus1 = 15,
         SerialProtocol_ESCTelemetry = 16,
         SerialProtocol_Devo_Telem = 17,
@@ -113,13 +115,15 @@ public:
         SerialProtocol_WindVane = 21,
         SerialProtocol_SLCAN = 22,
         SerialProtocol_RCIN = 23,
+        SerialProtocol_RPi = 24, // RPi target follow test
     };
 
     // get singleton instance
-    static AP_SerialManager *get_singleton(void) {
+    static AP_SerialManager *get_singleton(void)
+    {
         return _singleton;
     }
-    
+
     // init_console - initialise console at default baud rate
     void init_console();
 
@@ -144,7 +148,7 @@ public:
     // get_mavlink_protocol - provides the specific MAVLink protocol for a
     // given channel, or SerialProtocol_None if not found
     SerialProtocol get_mavlink_protocol(mavlink_channel_t mav_chan) const;
-    
+
     // set_blocking_writes_all - sets block_writes on or off for all serial channels
     void set_blocking_writes_all(bool blocking);
 
@@ -165,12 +169,13 @@ public:
 
 private:
     static AP_SerialManager *_singleton;
-    
+
     // array of uart info
-    struct UARTState {
+    struct UARTState
+    {
         AP_Int8 protocol;
         AP_Int32 baud;
-        AP_HAL::UARTDriver* uart;
+        AP_HAL::UARTDriver *uart;
         AP_Int16 options;
     } state[SERIALMANAGER_NUM_PORTS];
 
@@ -182,7 +187,7 @@ private:
     // search through managed serial connections looking for the
     // instance-nth UART which is running protocol protocol
     const UARTState *find_protocol_instance(enum SerialProtocol protocol,
-                                      uint8_t instance) const;
+                                            uint8_t instance) const;
 
     uint32_t map_baudrate(int32_t rate) const;
 
@@ -193,6 +198,7 @@ private:
     void set_options(uint8_t i);
 };
 
-namespace AP {
-    AP_SerialManager &serialmanager();
+namespace AP
+{
+AP_SerialManager &serialmanager();
 };

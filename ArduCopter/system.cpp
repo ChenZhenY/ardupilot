@@ -166,6 +166,8 @@ void Copter::init_ardupilot()
     camera_mount.init();
 #endif
 
+RPi.init(serial_manager); // init the RPi serial port
+
 #if PRECISION_LANDING == ENABLED
     // initialise precision landing
     init_precland();

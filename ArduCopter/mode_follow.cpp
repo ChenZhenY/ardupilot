@@ -17,11 +17,11 @@
 bool ModeFollow::init(const bool ignore_checks)
 {
     if (!g2.follow.enabled()) {
-        gcs().send_text(MAV_SEVERITY_WARNING, "Set FOLL_ENABLE = 1");
-        return false;
+              gcs().send_text(MAV_SEVERITY_WARNING, "Set FOLL_ENABLE = 1");
+                             return false;
     }
     // re-use guided mode
-    return ModeGuided::init(ignore_checks);
+        return ModeGuided::init(ignore_checks);
 }
 
 // perform cleanup required when leaving follow mode
